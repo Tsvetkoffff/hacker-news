@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { getStory } from '../services/services';
+import React from 'react';
 
-export const Story = ({ storyId }) => {
-  const [story, setStory] = useState({});
-
-  useEffect(() => {
-    getStory(storyId).then((data) => data && setStory(data));
-  });
-
-  return story ? <li>{story.by}</li> : null;
-};
+export default ({ by, time, score, title, url }) => (
+  <a
+    href={url}
+    className='list-group-item list-group-item-action'
+    aria-current='true'
+  >
+    <div className='d-flex w-100 justify-content-between'>
+      <h5 className='mb-1'> { title } </h5>
+      <small>{time}</small>
+    </div>
+    <p className='mb-1'>{by}</p>
+    <small>{score}</small>
+  </a>
+);
