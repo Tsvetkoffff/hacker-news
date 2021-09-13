@@ -2,24 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { getStoreys } from './services/services';
 import Story from './components/Story';
 import Header from './components/Header';
+import Container from './Layouts/Container';
+import ListGroup from './Layouts/ListGroup';
 
 function App() {
   const [storeys, setStoreys] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getStoreys().then(setStoreys);
-      setIsLoading(false);
-    };
     fetchData();
   }, []);
 
+  const fetchData = async () => {
+    await getStoreys().then(setStoreys);
+    setIsLoading(false);
+  };
+
+  const updateStoreys = () => {
+    setIsLoading(true);
+    fetchData();
+  };
+
   return (
     <>
-      <Header isLoading={isLoading} />
-      <div className='container'>
-        <div className='list-group mt-5 pt-3 mb-3'>
+      <Container>
+        <Header isLoading={isLoading} handleClick={updateStoreys} />
+        <ListGroup>
           {storeys.map((s) => (
             <Story
               key={s.id}
@@ -30,8 +38,8 @@ function App() {
               url={s.url}
             />
           ))}
-        </div>
-      </div>
+        </ListGroup>
+      </Container>
     </>
   );
 }
