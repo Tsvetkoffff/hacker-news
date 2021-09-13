@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { getStoresIds, getStory } from './services/services';
+import { getStoreys } from './services/services';
 import Story from './components/Story';
-import Loader from './components/Loader';
+import Header from './components/Header';
 
 function App() {
   const [storeys, setStoreys] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      const ids = await getStoresIds();
-      const cutIds = ids.slice(0, 100);
-      const storeysArr = await Promise.all(
-        cutIds.map((id) => {
-          return getStory(id).then((story) => story);
-        })
-      );
-      const sortStoreys = storeysArr.sort((a, b) => a.time - b.time);
-      setStoreys(sortStoreys);
-      setIsLoading((i) => {return !i})
-    }
+    const fetchData = async () => {
+      await getStoreys().then(setStoreys);
+      setIsLoading(false);
+    };
     fetchData();
   }, []);
 
-  if (!isLoading) {
-    return (
-      <div className='container mt-1 mb-1'>
-        <div className='list-group'>
+  return (
+    <>
+      <Header isLoading={isLoading} />
+      <div className='container'>
+        <div className='list-group mt-5 pt-3 mb-3'>
           {storeys.map((s) => (
             <Story
               key={s.id}
@@ -34,14 +27,13 @@ function App() {
               by={s.by}
               score={s.score}
               time={s.time}
+              url={s.url}
             />
           ))}
         </div>
       </div>
-    );
-  } else {
-    return <Loader />;
-  }
+    </>
+  );
 }
 
 export default App;
