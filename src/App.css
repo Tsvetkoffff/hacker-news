@@ -1,0 +1,9 @@
+@import '~antd/dist/antd.css';
+
+.my-layout {
+  min-height: 100vh;
+}
+
+.logo {
+  color: lightgray;
+}
