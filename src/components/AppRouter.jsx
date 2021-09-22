@@ -13,7 +13,7 @@ const appRouter = () => {
           key={route.path}
         />
       ))}
-      <Redirect to={routeNames.STOREYS_LIST} />
+      <Redirect to={routeNames.STORIES_LIST} />
     </Switch>
   );
 };

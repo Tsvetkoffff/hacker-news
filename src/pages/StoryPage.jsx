@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const StoryPage = (props) => {
-  return (
-    <div>
-      Story Page
-    </div>
-  )
-}
+const StoryPage = () => {
+  return <div>Story</div>;
+};
 
-export default StoryPage
+export default StoryPage;

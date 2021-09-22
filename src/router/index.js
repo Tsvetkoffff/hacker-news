@@ -1,12 +1,12 @@
 import storyPage from "../pages/StoryPage";
-import storeysListPage from "../pages/StoreysListPage";
+import storiesListPage from "../pages/StoriesListPage";
 
 export const routeNames = {
-  STOREYS_LIST: '/',
+  STORIES_LIST: '/newstories',
   STORY: '/story'
 }
 
 export const routes = [
-  {path: routeNames.STOREYS_LIST, exact: true, component: storeysListPage},
-  {path: routeNames.STORY, exact: true, component: storyPage}
+  {path: routeNames.STORIES_LIST, exact: true, component: storiesListPage},
+  {path: routeNames.STORY, exact: false, component: storyPage}
 ]
