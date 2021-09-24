@@ -10,7 +10,7 @@ function App() {
       <Layout.Header>
         <Navbar />
       </Layout.Header>
-      <Layout.Content>
+      <Layout.Content className='container' style={{ marginTop: 20 }}>
         <AppRouter />
       </Layout.Content>
       <Layout.Footer style={{ textAlign: 'center' }}>

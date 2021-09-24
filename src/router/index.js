@@ -3,7 +3,7 @@ import storiesListPage from "../pages/StoriesListPage";
 
 export const routeNames = {
   STORIES_LIST: '/newstories',
-  STORY: '/story'
+  STORY: '/story/:id'
 }
 
 export const routes = [

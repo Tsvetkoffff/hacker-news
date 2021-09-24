@@ -1,7 +1,8 @@
 import React from 'react';
+import StoryList from '../components/StoryList/StoryList';
 
 const StoriesListPage = () => {
-  return <div>Stories</div>;
+  return <StoryList/>
 };
 
 export default StoriesListPage;
