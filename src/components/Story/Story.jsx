@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFetching } from '../../hooks/useFetching';
 import { getStory } from '../../api/services';
 import styles from './Story.module.css';
-import { Card, Skeleton } from 'antd';
+import { Card } from 'antd';
 import { mapDateFromStamp } from '../../utils/mapDateFromStamp';
 import { useHistory } from 'react-router';
 
@@ -35,26 +35,22 @@ const Story = ({ storyId }) => {
           className={styles.card}
           onClick={() => router.push(`/story/${story.id}`)}
         >
-          <Skeleton loading={storyIsLoading}>
-            <div className={styles.wrapper}>
-              <div className={styles.top}>
-                <h3 className={styles.title}>{story.title}</h3>
-                <small>Rating: {story.score}</small>
-              </div>
-              <div className={styles.bottom}>
-                <p>Author: {story.by}</p>
-                <p>{mapDateFromStamp(story.time)}</p>
-              </div>
+          <div className={styles.wrapper}>
+            <div className={styles.top}>
+              <h3 className={styles.title}>{story.title}</h3>
+              <small>Rating: {story.score}</small>
             </div>
-          </Skeleton>
+            <div className={styles.bottom}>
+              <p>Author: {story.by}</p>
+              <p>{mapDateFromStamp(story.time)}</p>
+            </div>
+          </div>
         </Card.Grid>
       );
     } else if (router.location.pathname === `/story/${story.id}`) {
       return (
         <Card>
-          <Skeleton loading={storyIsLoading}>
-            <h2>{story.title}</h2>
-          </Skeleton>
+          <h2>{story.title}</h2>
         </Card>
       );
     }
