@@ -1,11 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import Story from '../components/Story/Story';
+import ExactStory from '../components/ExactStory/ExactStory';
 
 const StoryPage = () => {
   const params = useParams();
 
-  return <Story storyId={params.id} />;
+  return <ExactStory storyId={params.id} />;
 };
 
 export default StoryPage;

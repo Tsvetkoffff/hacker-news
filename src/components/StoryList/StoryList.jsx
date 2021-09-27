@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useFetching } from '../../hooks/useFetching';
 import { getStoryIds } from '../../api/services';
-import Story from '../Story/Story';
+import PreviewStory from '../PreviewStory/PreviewStory';
 import styles from './StoryList.module.css';
 import Spinner from '../Spinner/Spinner';
 import { Card, Alert } from 'antd';
@@ -35,7 +35,7 @@ const StoryList = () => {
       ) : (
         <Card>
           {storyIds.map((id) => (
-            <Story key={id} storyId={id} />
+            <PreviewStory key={id} storyId={id} />
           ))}
         </Card>
       )}
