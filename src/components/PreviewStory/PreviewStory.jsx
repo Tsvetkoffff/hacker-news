@@ -30,7 +30,7 @@ const PreviewStory = ({ storyId }) => {
 
   return storyError ? (
     <Alert message='Error' description={storyError} type='error' showIcon />
-  ) : (
+  ) : story.url && (
     <Card.Grid
       className={styles.card}
       onClick={() => router.push(`/story/${story.id}`)}

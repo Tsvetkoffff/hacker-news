@@ -8,11 +8,11 @@ import { Card, Alert } from 'antd';
 
 const StoryList = () => {
   const [storyIds, setStoryIds] = useState([]);
+  const totalCount = 100;
   const [fetchStoryIds, storyIdsIsLoading, storyIdsError] = useFetching(
     async () => {
       const ids = await getStoryIds();
-      const cutIds = ids.data.slice(0, 20);
-      setStoryIds(cutIds);
+      setStoryIds(Object.values(ids.data));
     }
   );
 
