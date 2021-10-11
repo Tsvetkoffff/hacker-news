@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout, Divider } from 'antd';
 import './App.css';
-import AppRouter from './components/AppRouter';
-import Navbar from './components/Navbar';
+import AppRouter from './components/AppRouter/AppRouter';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (

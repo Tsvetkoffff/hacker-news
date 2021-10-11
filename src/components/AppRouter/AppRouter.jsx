@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { routeNames, routes } from '../router';
+import { routeNames, routes } from '../../router';
 
 const appRouter = () => {
   return (
