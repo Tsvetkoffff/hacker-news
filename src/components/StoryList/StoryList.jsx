@@ -14,7 +14,7 @@ const StoryList = () => {
   const [fetchStoryIds, storyIdsIsLoading, storyIdsError] = useFetching(
     async () => {
       const ids = await getStoryIds();
-      setStoryIds(ids.data);
+      setStoryIds(ids);
     }
   );
   const [fetchStories, storiesIsLoading, storiesError] = useFetching(
@@ -45,7 +45,7 @@ const StoryList = () => {
       {storiesError && storyIdsError && (
         <Alert
           message='Error'
-          description={storiesError}
+          description={`${storyIdsError} and ${storiesError}`}
           type='error'
           showIcon
         />
@@ -61,7 +61,7 @@ const StoryList = () => {
             dataLength={stories.length}
             next={fetchMoreData}
             hasMore={hasMore}
-            scrollThreshold={1}
+            scrollThreshold={0.85}
             className={styles.scrollWrapper}
             loader={<Spin tip='Loading...' size='large' className={styles.infiniteSpin} />}
             endMessage={
