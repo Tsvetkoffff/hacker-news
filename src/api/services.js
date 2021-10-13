@@ -14,7 +14,7 @@ const getPageSlice = (limit, page = 0) => ({
 const getPageValues = ({ begin, end, items }) => items.slice(begin, end);
 
 export const getStoryIds = async () => {
-  return await axios.get(STORIES_IDS_URL);
+  return await axios.get(STORIES_IDS_URL).then(res => res.data);
 };
 
 export const getStory = async (id) => {
