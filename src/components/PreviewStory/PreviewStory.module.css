@@ -1,13 +1,8 @@
 .card {
-  width: 50%;
+  float: none;
+  width: auto;
   height: 190px;
   cursor: pointer;
-}
-
-@media screen and (max-width: 992px) {
-  .card {
-    width: 100%;
-  }
 }
 
 .wrapper {

@@ -4,20 +4,10 @@ import { getStory } from '../../api/services';
 import { Alert, Card, Skeleton } from 'antd';
 
 const ExactStory = ({ storyId }) => {
-  const [story, setStory] = useState({
-    by: '',
-    descendants: null,
-    id: null,
-    kids: [],
-    score: null,
-    time: null,
-    title: '',
-    type: 'story',
-    url: '',
-  });
+  const [story, setStory] = useState({});
   const [fetchStory, storyIsLoading, storyError] = useFetching(async () => {
     const response = await getStory(storyId);
-    response.data.url && setStory(response.data);
+    response.url && setStory(response)
   });
 
   useEffect(() => {

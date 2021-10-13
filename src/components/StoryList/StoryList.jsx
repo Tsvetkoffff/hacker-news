@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useFetching } from '../../hooks/useFetching';
-import { getStoryIds } from '../../api/services';
+import { getStoryIds, getStoriesByPage } from '../../api/services';
 import PreviewStory from '../PreviewStory/PreviewStory';
 import styles from './StoryList.module.css';
-import Spinner from '../Spinner/Spinner';
-import { Card, Alert } from 'antd';
+import { Card, Alert, Spin } from 'antd';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const StoryList = () => {
   const [storyIds, setStoryIds] = useState([]);
-  const totalCount = 100;
+  const [stories, setStories] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   const [fetchStoryIds, storyIdsIsLoading, storyIdsError] = useFetching(
     async () => {
       const ids = await getStoryIds();
-      setStoryIds(Object.values(ids.data));
+      setStoryIds(ids.data);
+    }
+  );
+  const [fetchStories, storiesIsLoading, storiesError] = useFetching(
+    async () => {
+      const storyPage = await getStoriesByPage(storyIds, page);
+      setStories([...stories, ...storyPage]);
     }
   );
 
@@ -20,25 +28,62 @@ const StoryList = () => {
     fetchStoryIds();
   }, []);
 
+  useEffect(() => {
+    fetchStories();
+  }, [page, storyIds]);
+
+  const fetchMoreData = () => {
+    if (stories.length >= 500) {
+      setHasMore(false);
+      return;
+    }
+    setPage(page + 1);
+  };
+
   return (
-    <div className={styles.storyList}>
-      {storyIdsError && (
+    <div>
+      {storiesError && storyIdsError && (
         <Alert
           message='Error'
-          description={storyIdsError}
+          description={storiesError}
           type='error'
           showIcon
         />
       )}
-      {storyIdsIsLoading ? (
-        <Spinner />
-      ) : (
-        <Card>
-          {storyIds.map((id) => (
-            <PreviewStory key={id} storyId={id} />
-          ))}
-        </Card>
-      )}
+
+      <Card className={styles.cardWrapper}>
+        {storyIdsIsLoading ? (
+          <div className={styles.loaderWrapper}>
+            <Spin tip='Loading...' size='large' />
+          </div>
+        ) : (
+          <InfiniteScroll
+            dataLength={stories.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            scrollThreshold={1}
+            className={styles.scrollWrapper}
+            loader={<Spin tip='Loading...' size='large' className={styles.infiniteSpin} />}
+            endMessage={
+              <p style={{ textAlign: 'center' }} className={styles.endMessage}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            {stories.map((story) => (
+              <PreviewStory
+                key={story.id}
+                id={story.id}
+                title={story.title}
+                score={story.score}
+                by={story.by}
+                time={story.time}
+                storiesIsLoading={storiesIsLoading}
+              />
+            ))}
+          </InfiniteScroll>
+        )}
+      </Card>
     </div>
   );
 };
