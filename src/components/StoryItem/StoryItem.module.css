@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+}
+
+.url {
+  padding-left: 20px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}

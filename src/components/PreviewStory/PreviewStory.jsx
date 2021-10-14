@@ -1,27 +1,18 @@
 import React from 'react';
 import styles from './PreviewStory.module.css';
 import { Card } from 'antd';
-import { mapDateFromStamp } from '../../utils/mapDateFromStamp';
 import { useHistory } from 'react-router';
+import StoryItem from '../StoryItem/StoryItem';
 
-const PreviewStory = ({ id, title, score, by, time }) => {
+const PreviewStory = ({ story }) => {
   const router = useHistory();
 
   return (
     <Card.Grid
       className={styles.card}
-      onClick={() => router.push(`/story/${id}`)}
+      onClick={() => router.push(`/story/${story.id}`)}
     >
-      <div className={styles.wrapper}>
-        <div className={styles.top}>
-          <h3 className={styles.title}>{title}</h3>
-          <small>Rating: {score}</small>
-        </div>
-        <div className={styles.bottom}>
-          <p>Author: {by}</p>
-          <p>{mapDateFromStamp(time)}</p>
-        </div>
-      </div>
+      <StoryItem story={story} heading='h3'/>
     </Card.Grid>
   );
 };

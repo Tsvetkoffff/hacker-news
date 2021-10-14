@@ -72,13 +72,9 @@ const StoryList = () => {
           >
             {stories.map((story) => (
               <PreviewStory
-                key={story.id}
-                id={story.id}
-                title={story.title}
-                score={story.score}
-                by={story.by}
-                time={story.time}
+                story={story}
                 storiesIsLoading={storiesIsLoading}
+                key={story.id}
               />
             ))}
           </InfiniteScroll>
