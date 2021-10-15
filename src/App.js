@@ -6,14 +6,14 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
-    <Layout className='my-layout'>
-      <Layout.Header>
+    <Layout>
+      <Layout.Header className='header'>
         <Navbar />
       </Layout.Header>
-      <Layout.Content className='container' style={{ marginTop: 20 }}>
+      <Layout.Content className='main'>
         <AppRouter />
       </Layout.Content>
-      <Layout.Footer style={{ textAlign: 'center' }}>
+      <Layout.Footer className='footer'>
         Developed by Slava Tsvetkoffff
       </Layout.Footer>
     </Layout>

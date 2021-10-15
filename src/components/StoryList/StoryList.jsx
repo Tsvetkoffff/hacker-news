@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useFetching } from '../../hooks/useFetching';
 import { getStoryIds, getStoriesByPage } from '../../api/services';
-import PreviewStory from '../PreviewStory/PreviewStory';
 import styles from './StoryList.module.css';
-import { Card, Alert, Spin } from 'antd';
+import { Alert, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useHistory } from 'react-router';
+import StoryItem from '../StoryItem/StoryItem';
+import MySpin from '../MySpin/MySpin';
 
 const StoryList = () => {
   const [storyIds, setStoryIds] = useState([]);
   const [stories, setStories] = useState([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const router = useHistory();
   const [fetchStoryIds, storyIdsIsLoading, storyIdsError] = useFetching(
     async () => {
       const ids = await getStoryIds();
@@ -51,35 +54,33 @@ const StoryList = () => {
         />
       )}
 
-      <Card className={styles.cardWrapper}>
-        {storyIdsIsLoading ? (
-          <div className={styles.loaderWrapper}>
-            <Spin tip='Loading...' size='large' />
-          </div>
-        ) : (
-          <InfiniteScroll
-            dataLength={stories.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            scrollThreshold={0.85}
-            className={styles.scrollWrapper}
-            loader={<Spin tip='Loading...' size='large' className={styles.infiniteSpin} />}
-            endMessage={
-              <p style={{ textAlign: 'center' }} className={styles.endMessage}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
-          >
-            {stories.map((story) => (
-              <PreviewStory
+      {storyIdsIsLoading ? (
+        <MySpin />
+      ) : (
+        <InfiniteScroll
+          dataLength={stories.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          scrollThreshold={0.85}
+          className={styles.scrollWrapper}
+          loader={<MySpin />}
+          endMessage={
+            <p style={{ textAlign: 'center' }} className={styles.endMessage}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          {stories.map((story) => (
+            <div key={story.id}>
+              <StoryItem
                 story={story}
-                storiesIsLoading={storiesIsLoading}
-                key={story.id}
+                heading='h3'
+                handleClick={() => router.push(`/story/${story.id}`)}
               />
-            ))}
-          </InfiniteScroll>
-        )}
-      </Card>
+            </div>
+          ))}
+        </InfiniteScroll>
+      )}
     </div>
   );
 };

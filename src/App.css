@@ -1,14 +1,10 @@
 @import '~antd/dist/antd.css';
 
-.my-layout {
-  min-height: 100vh;
+.footer {
+  width: 100%;
+  text-align: center;
 }
 
-.logo {
-  color: lightgray;
-}
-
-.wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
+.main {
+  min-height: calc(100vh - 134px);
 }

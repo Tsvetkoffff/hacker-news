@@ -1,19 +1,26 @@
 .wrapper {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-between;
+  margin: 10px 20px;
+  cursor: default;
 }
 
-.title {
-  margin: 0;
-}
-
-.url {
-  padding-left: 20px;
-}
-
+.top,
 .bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between
+}
+
+.listTitle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.url,
+.author {
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+.rating,
+.date {
+  margin-left: 1em;
+  margin-bottom: 1em;
 }
