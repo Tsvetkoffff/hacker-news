@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useFetching } from '../../hooks/useFetching';
 import { getStoryIds, getStoriesByPage } from '../../api/services';
 import styles from './StoryList.module.css';
-import { Alert, Spin } from 'antd';
+import { Alert } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useHistory } from 'react-router';
 import StoryItem from '../StoryItem/StoryItem';
@@ -44,7 +44,7 @@ const StoryList = () => {
   };
 
   return (
-    <div>
+    <>
       {storiesError && storyIdsError && (
         <Alert
           message='Error'
@@ -54,7 +54,7 @@ const StoryList = () => {
         />
       )}
 
-      {storyIdsIsLoading ? (
+      {storyIdsIsLoading && storiesIsLoading ? (
         <MySpin />
       ) : (
         <InfiniteScroll
@@ -62,13 +62,13 @@ const StoryList = () => {
           next={fetchMoreData}
           hasMore={hasMore}
           scrollThreshold={0.85}
-          className={styles.scrollWrapper}
           loader={<MySpin />}
           endMessage={
-            <p style={{ textAlign: 'center' }} className={styles.endMessage}>
+            <p style={{ textAlign: 'center' }}>
               <b>Yay! You have seen it all</b>
             </p>
           }
+          style={{ overflow: 'hidden' }}
         >
           {stories.map((story) => (
             <div key={story.id}>
@@ -81,7 +81,7 @@ const StoryList = () => {
           ))}
         </InfiniteScroll>
       )}
-    </div>
+    </>
   );
 };
 
