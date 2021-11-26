@@ -22,8 +22,8 @@ const StoryList = () => {
   );
   const [fetchStories, storiesIsLoading, storiesError] = useFetching(
     async () => {
-      const storyPage = await getStoriesByPage(storyIds, page);
-      setStories([...stories, ...storyPage]);
+      const storiesPage = await getStoriesByPage(storyIds, page);
+      setStories([...stories, ...storiesPage]);
     }
   );
 

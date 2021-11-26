@@ -1,4 +1,4 @@
-import { Row, Col, Menu } from 'antd';
+import { Row, Col } from 'antd';
 import React from 'react';
 
 const Navbar = () => {
@@ -7,9 +7,6 @@ const Navbar = () => {
       <Col className='ant-menu ant-menu-dark'>
         Hacker News
       </Col>
-      <Menu theme='dark' mode='horizontal'>
-        fdgfdg
-      </Menu>
     </Row>
   );
 };
