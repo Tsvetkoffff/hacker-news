@@ -17,13 +17,18 @@ export const getStoryIds = async () => {
   return await axios.get(STORIES_IDS_URL).then(res => res.data);
 };
 
-export const getStory = async (id) => {
+export const getItem = async (id) => {
   return await axios.get(`${ITEM_URL}${id}.json`).then(res => res.data);
 };
 
 export const getStoriesByPage = async (ids, page) => {
   const { begin, end } = getPageSlice(PAGE_LIMIT, page);
   const activeIds = getPageValues({ begin, end, items: ids });
-  const storyPromises = await activeIds.map(id => getStory(id));
+  const storyPromises = await activeIds.map(id => getItem(id));
   return Promise.all(storyPromises);
+};
+
+export const getComments = async (ids) => {
+  const commentPromises = await ids.map(id => getItem(id));
+  return Promise.all(commentPromises);
 };
